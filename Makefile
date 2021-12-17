@@ -1,5 +1,5 @@
 # Variables
-DOCKER_IMAGE=alvarofpp/antlr4
+DOCKER_IMAGE=alvarofpp/antlr4:latest
 DOCKER_IMAGE_LINTER=alvarofpp/docker-base-linter
 ROOT=$(shell pwd)
 LINT_COMMIT_TARGET_BRANCH=origin/main
@@ -23,12 +23,16 @@ antlr:
 
 .PHONY: compile
 compile:
+	@docker pull ${DOCKER_IMAGE}
 	@${DOCKER_COMMAND} javac ${GRAMMAR_FOLDER}/${GRAMMAR}*.${TARGET_EXTENSION}
 
 .PHONY: grun
 grun:
 	@docker pull ${DOCKER_IMAGE}
-	@docker run --rm -v ${ROOT}/src:/work \
+	@docker run --rm -it \
+	-e DISPLAY=$(hostname -I | cut -f1 -d' '):0 \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v ${ROOT}/src:/work \
 	${DOCKER_IMAGE} grun ${GRAMMAR} prog -gui
 
 .PHONY: lint
