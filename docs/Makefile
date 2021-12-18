@@ -1,6 +1,6 @@
 # Variables
 DOCKER_IMAGE=alvarofpp/antlr4:latest
-DOCKER_IMAGE_LINTER=alvarofpp/docker-base-linter:latest
+DOCKER_IMAGE_LINTER=alvarofpp/base-linter:latest
 ROOT=$(shell pwd)
 LINT_COMMIT_TARGET_BRANCH=origin/main
 DOCKER_COMMAND=docker run --rm -v ${ROOT}:/work ${DOCKER_IMAGE}
