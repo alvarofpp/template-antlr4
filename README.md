@@ -1,56 +1,44 @@
-# Grammar for
+# Boilerplate for ANTLR4
 
-Description here.
+You can use this template to make you DSL (Domain-Specific Languages) using [ANTLR4][antlr].
 
-```g4
-example here
-```
+In this template, you can use the Makefile to execute commands:
 
-On this DSL you have:
+| Command        | Description                              |
+|----------------|------------------------------------------|
+| `make antlr`   | Run ANTLR.                               |
+| `make compile` | Compile files in some cases (like Java). |
+| `make grun`    | Run the Parse Tree Inspector.            |
 
-- Name: `example`
-- Name: `example`
-- Name: `example`
+You can find a copy of this document in the [`docs`](docs) folder.
 
-## How to use
+## Getting Started
 
-```shell
-example here
-```
-
-## Validations
-
-### VALIDATION_NAME
-
-Validation description.
-
-- **Message**: "Message here".
-- **Type**: error/warning.
-
-Correct:
+To start your DSL you must run:
 
 ```shell
-example here
+make init
 ```
 
-Incorrect:
+You must fill in the data or accept the default values, as in the example below:
 
-```shell
-example here
+```text
+--- Project ---
+Title ["Title here"]: My first DSL
+Description ["Description here"]: A DSL to make "Hello World"
+
+--- Code Generation Target ---
+Target language ["Java"]: Python3
+
+--- Grammar ---
+The name of your grammar ["Expr"]: HelloWorld
+
+Generating README.md
+Done! (README.md)
+Generating Makefile
+Done! (Makefile)
+Generating src/HelloWorld.g4
+Done! (src/HelloWorld.g4)
 ```
 
-## Examples
-
-### Example name
-
-Input:
-
-```shell
-example here
-```
-
-Output:
-
-```shell
-example here
-```
+[antlr]: https://www.antlr.org/
