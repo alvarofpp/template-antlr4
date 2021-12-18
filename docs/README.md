@@ -1,6 +1,6 @@
 # Boilerplate for ANTLR4
 
-You can use this template to make you DSL (Domain-Specific Languages) using [ANTLR4][antlr].
+You can use this template to make your DSL (Domain-Specific Languages) using [ANTLR4][antlr].
 
 In this template, you can use the Makefile to execute commands:
 
