@@ -12,6 +12,14 @@ On this DSL you have:
 - Name: `example`
 - Name: `example`
 
+## How to develop
+
+| Command        | Description                              |
+|----------------|------------------------------------------|
+| `make antlr`   | Run ANTLR.                               |
+| `make compile` | Compile files in some cases (like Java). |
+| `make grun`    | Run the Parse Tree Inspector.            |
+
 ## How to use
 
 ```shell

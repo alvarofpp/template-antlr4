@@ -1,9 +1,9 @@
 # Variables
 DOCKER_IMAGE=alvarofpp/antlr4:latest
-DOCKER_IMAGE_LINTER=alvarofpp/base:linter
+DOCKER_IMAGE_LINTER=alvarofpp/linter:latest
 ROOT=$(shell pwd)
 LINT_COMMIT_TARGET_BRANCH=origin/main
-DOCKER_COMMAND=docker run --rm -v ${ROOT}:/work ${DOCKER_IMAGE}
+DOCKER_COMMAND=docker run --rm -u $(id -u) -v ${ROOT}:/work ${DOCKER_IMAGE}
 
 ## Grammar
 TARGET_LANGUAGE=Java
@@ -14,26 +14,23 @@ GRAMMAR_FOLDER=src
 # Commands
 .PHONY: init
 init:
-	@docker run --rm -it -v ${ROOT}:/work ${DOCKER_IMAGE} bash ./init.sh
+	@${DOCKER_COMMAND} bash ./init.sh
 
 .PHONY: install-hooks
 install-hooks:
 	git config core.hooksPath .githooks
 
 .PHONY: antlr
-antlr:
-	@docker pull ${DOCKER_IMAGE}
+antlr: pull
 	@${DOCKER_COMMAND} antlr -Dlanguage=${TARGET_LANGUAGE} ${GRAMMAR_FOLDER}/${GRAMMAR}.g4
 
 .PHONY: compile
-compile:
-	@docker pull ${DOCKER_IMAGE}
+compile: pull
 	@${DOCKER_COMMAND} javac ${GRAMMAR_FOLDER}/${GRAMMAR}*.${TARGET_EXTENSION}
 
 .PHONY: grun
-grun:
-	@docker pull ${DOCKER_IMAGE}
-	@docker run --rm -it \
+grun: pull
+	@docker run --rm -u $(id -u) -it \
 	-e DISPLAY=$(hostname -I | cut -f1 -d' '):0 \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v ${ROOT}/src:/work \
@@ -47,3 +44,7 @@ lint:
 		&& lint-markdown \
 		&& lint-shell-script \
 		&& lint-yaml"
+
+.PHONY: pull
+pull:
+	@docker pull ${DOCKER_IMAGE}
